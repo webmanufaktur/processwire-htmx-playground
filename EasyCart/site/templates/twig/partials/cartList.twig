@@ -1,0 +1,22 @@
+<div id="cartList" hx-swap-oob="true" class="border-2 border-blue-500 p-4 text-blue-500 rounded">
+  <div>twig: cartList</div>
+  {% if cart|length %}
+    <ul>
+      {% for item in cart %}
+        <li class="flex justify-between items-center border-2 rounded-md p-4 border-gray-500">
+          <div class="flex-1">{{ pages.get(item.id).title }}</div>
+          <div class="flex-1">
+            Amount: {{ item.amount }}
+
+            <button hx-get="/cart/increase/{{ item.id }}/">+</button>
+            <button hx-get="/cart/decrease/{{ item.id }}/">-</button>
+          </div>
+          <div class="flex-1">Price: {{ item.id }} EUR</div>
+          <div class="flex-1" hx-get="/cart/remove/{{ item.id }}/">remove</div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="border-2 border-gray-500 p-8 rounded-md text-gray-500 mt-12 text-center">NO ITEMS IN YOUR CART</div>
+  {% endif %}
+</div>

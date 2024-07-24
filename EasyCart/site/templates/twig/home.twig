@@ -1,0 +1,35 @@
+{% extends 'layouts/base.twig' %}
+
+{% block content %}
+  <div class="max-w-3xl mx-auto p-12">
+    <h1 class="text-3xl font-bold">Home</h1>
+    <hr class="my-6" />
+    <h2 class="text2xl font-bold mb-6">Products</h2>
+    <div class="grid grid-cols-3 gap-4">
+      {% for item in pages.findMany('template=product') %}
+        <div class="shadow p-4 rounded">
+          <div>
+            <div class="aspect-square bg-gray-100"></div>
+          </div>
+          <div class="my-4">{{ item.title }}</div>
+          <div class="">
+            <button class="hidden w-full rounded bg-blue-700 text-white text-center font-bold py-2 px-4" hx-get="/cart/add/{{ item.id }}/">Add</button>
+
+            <form hx-post="/cart/add/{{ item.id }}/" hx-target="#cartList">
+              <button type="submit" class="w-full rounded bg-red-700 mt-2 text-white text-center font-bold py-2 px-4">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="mt-12">
+      <h2 class="text2xl font-bold">Cart</h2>
+      <div>
+        <div id="cartList" class="border-2 p-4 rounded" hx-trigger="load delay:300ms" hx-swap="innerHTML" hx-get="/cart/list/">Loading...</div>
+        <div class="mt-8">
+          <button class="rounded bg-blue-700 text-white text-center font-bold py-2 px-4" hx-get="/cart/clear/">Clear Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
