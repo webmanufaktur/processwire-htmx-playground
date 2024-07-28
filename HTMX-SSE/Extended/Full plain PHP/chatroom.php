@@ -1,0 +1,1 @@
+<p>New message <?php echo time(); ?></p>
